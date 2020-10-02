@@ -97,6 +97,7 @@ func (idp *IdentityProvider) MetaDataResponse() (string, *Reject) {
 			})
 		}
 	}
+	
 	if len(idp.SingleSignOutService) > 0 {
 		for i := 0; i < len(idp.SingleSignOutService); i++ {
 			metadata.IDPSSODescriptor.SingleLogoutService = append(metadata.IDPSSODescriptor.SingleLogoutService, lib.SingleLogoutService{
@@ -109,6 +110,33 @@ func (idp *IdentityProvider) MetaDataResponse() (string, *Reject) {
 			})
 		}
 	}
+	
+	if idp.Organization != nil {
+		metadata.ContactPerson = append(metadata.Organization, lib.Organization{
+			XMLName: xml.Name{
+				Local: "Organization",
+			},
+			OrganizationName:  idp.Organization.OrganizationName,
+			OrganizationDisplayName: idp.Organization.OrganizationDisplayName,
+			OrganizationURL: idp.Organization.OrganizationURL,
+		})
+	}
+
+	if len(idp.ContactPerson) > 0  {
+		for i := 0; i < len(idp.ContactPerson); i++ {
+			metadata.ContactPerson = append(metadata.ContactPerson, lib.ContactPerson{
+				XMLName: xml.Name{
+					Local: "ContactPerson",
+				},
+				Index:    fmt.Sprintf(`%d`, i),
+				GivenName:  idp.SingleSignOutService[i].GivenName,
+				SurName: idp.SingleSignOutService[i].SurName,
+				EmailAddress: idp.SingleSignOutService[i].EmailAddress,
+			})
+		}
+
+	}
+
 	b, err := xml.MarshalIndent(metadata, "", "    ")
 	if err != nil {
 		return "", &Reject{err, "XML_ENCODE_ERROR"}
@@ -155,6 +183,10 @@ func (idp *IdentityProvider) AddAttribute(name string, value string, format stri
 		"Value":  value,
 		"Format": format,
 	})
+}
+
+func (idp *IdentityProvider) AddContactPerson(service MetadataBinding) {
+	idp.ContactPerson = append(idp.ContactPerson, service)
 }
 
 func (idp *IdentityProvider) AddSingleSignOnService(service MetadataBinding) {

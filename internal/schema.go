@@ -141,6 +141,25 @@ type IDPEntityDescriptor struct {
 	ASSERTION        string           `xml:"xmlns:assertion,attr"`
 	EntityId         string           `xml:"entityID,attr"`
 	IDPSSODescriptor IDPSSODescriptor `xml:"IDPSSODescriptor"`
+	Organization Organization `xml:"Organization,omitempty "`
+	ContactPerson []ContactPerson `xml:"ContactPerson,omitempty "`
+}
+
+type Organization struct {
+	XMLName xml.Name
+	OrganizationName     string `xml:"xmlns:organizationname,attr"`
+	OrganizationDisplayName  string `xml:"xmlns:organizationdisplayname,attr"`
+	OrganizationURL   string `xml:"xmlns:organizationurl,attr"`
+}
+
+type ContactPerson struct {
+	XMLName xml.Name
+	Index    string `xml:"index,attr"`
+	GivenName     string `xml:"xmlns:givenname,attr"`
+	SurName  string `xml:"xmlns:surname,attr"`
+	EmailAddress   string `xml:"xmlns:emailaddress,attr"`
+
+	EntityAttributes string `xml:"EntityAttributes"`
 }
 
 type Extensions struct {
