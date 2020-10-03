@@ -112,7 +112,7 @@ func (idp *IdentityProvider) MetaDataResponse() (string, *Reject) {
 	}
 	
 	if idp.Organization != nil {
-		metadata.ContactPerson = append(metadata.Organization, lib.Organization{
+		metadata.Organization = append(metadata.Organization, lib.Organization{
 			XMLName: xml.Name{
 				Local: "Organization",
 			},

@@ -158,8 +158,6 @@ type ContactPerson struct {
 	GivenName     string `xml:"xmlns:givenname,attr"`
 	SurName  string `xml:"xmlns:surname,attr"`
 	EmailAddress   string `xml:"xmlns:emailaddress,attr"`
-
-	EntityAttributes string `xml:"EntityAttributes"`
 }
 
 type Extensions struct {
