@@ -189,6 +189,10 @@ func (idp *IdentityProvider) AddContactPerson(service MetadataBinding) {
 	idp.ContactPerson = append(idp.ContactPerson, service)
 }
 
+func (idp *IdentityProvider) AddOrganization(service MetadataBinding) {
+	idp.Organization = append(idp.Organization, service)
+}
+
 func (idp *IdentityProvider) AddSingleSignOnService(service MetadataBinding) {
 	idp.SingleSignOnService = append(idp.SingleSignOnService, service)
 }

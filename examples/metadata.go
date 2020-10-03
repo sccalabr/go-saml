@@ -25,6 +25,16 @@ func MetadataExample() {
 		Location: "https://identity-provider.com/saml/post/logout",
 	})
 
+	idp.AddContactPerson(saml.MetadataBinding{
+		Binding:  saml.HTTPPostBinding,
+		Location: "https://identity-provider.com/saml/post",
+	})
+
+	idp.AddOrganization(saml.MetadataBinding{
+		Binding:  saml.HTTPPostBinding,
+		Location: "https://identity-provider.com/saml/post",
+	})
+
 	// Generate xml for IDP Metadata
 	metadata, err := idp.MetaDataResponse()
 	if err != nil {
