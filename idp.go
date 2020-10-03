@@ -112,14 +112,7 @@ func (idp *IdentityProvider) MetaDataResponse() (string, *Reject) {
 	}
 	
 	if idp.Organization != nil {
-		metadata.Organization = append(metadata.Organization, lib.Organization{
-			XMLName: xml.Name{
-				Local: "Organization",
-			},
-			OrganizationName:  idp.Organization.OrganizationName,
-			OrganizationDisplayName: idp.Organization.OrganizationDisplayName,
-			OrganizationURL: idp.Organization.OrganizationURL,
-		})
+		metadata.Organization = idp.Organization
 	}
 
 	if len(idp.ContactPerson) > 0  {
@@ -129,9 +122,9 @@ func (idp *IdentityProvider) MetaDataResponse() (string, *Reject) {
 					Local: "ContactPerson",
 				},
 				Index:    fmt.Sprintf(`%d`, i),
-				GivenName:  idp.SingleSignOutService[i].GivenName,
-				SurName: idp.SingleSignOutService[i].SurName,
-				EmailAddress: idp.SingleSignOutService[i].EmailAddress,
+				GivenName:  idp.ContactPerson[i].GivenName,
+				SurName: idp.ContactPerson[i].SurName,
+				EmailAddress: idp.ContactPerson[i].EmailAddress,
 			})
 		}
 
@@ -185,7 +178,7 @@ func (idp *IdentityProvider) AddAttribute(name string, value string, format stri
 	})
 }
 
-func (idp *IdentityProvider) AddContactPerson(service MetadataBinding) {
+func (idp *IdentityProvider) AddContactPerson(service ContactPerson) {
 	idp.ContactPerson = append(idp.ContactPerson, service)
 }
 

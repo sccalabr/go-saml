@@ -141,7 +141,7 @@ type IDPEntityDescriptor struct {
 	ASSERTION        string           `xml:"xmlns:assertion,attr"`
 	EntityId         string           `xml:"entityID,attr"`
 	IDPSSODescriptor IDPSSODescriptor `xml:"IDPSSODescriptor"`
-	Organization Organization `xml:"Organization,omitempty "`
+	Organization *Organization `xml:"Organization,omitempty "`
 	ContactPerson []ContactPerson `xml:"ContactPerson,omitempty "`
 }
 
